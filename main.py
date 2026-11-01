@@ -41,21 +41,11 @@ while running:
 
         guest_name, guest_phone = guests_module.get_guest_details()
 
-        room_text = input("\nEnter room number to book: ")
-        nights_text = input("Enter number of nights: ")
-
-        if room_text.isdigit() == False or nights_text.isdigit() == False:
-            print("[Error] Please enter valid numbers for room and nights.")
-            continue
-
-        room_number = int(room_text)
-        nights = int(nights_text)
-
         reservations_module.book_room(
             rooms_module.rooms, guest_names, guest_phones, booked_rooms,
             reservation_nights, reservation_costs,
-            guest_name, guest_phone, room_number, nights
-        )
+            guest_name, guest_phone
+        )  
 
     elif choice == 3:
         guests_module.view_guest_records(

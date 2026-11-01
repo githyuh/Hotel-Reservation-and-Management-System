@@ -13,8 +13,8 @@ def calculate_statistics(rooms_list, reservation_costs_list):
     occupancy_rate = (occupied_count / total_rooms) * 100
 
     print(
-            f'''--- HOTEL STATISTICS ---
-          Total Rooms in System: {total_rooms}
-          Occupied Rooms: {occupied_count}
-          Occupancy Rate: {occupancy_rate:.2f}%
-          Total Revenue Generated: {current_revenue} DT''')
+    f'''--- HOTEL STATISTICS ---
+    Total Rooms in System: {total_rooms}
+    Occupied Rooms: {occupied_count}
+    Occupancy Rate: {occupancy_rate:.2f}%
+    Total Revenue Generated: {current_revenue} DT''')

@@ -8,25 +8,34 @@ maintenance_rooms = []
 def view_catalog():
     print("--- ROOM CATALOG ---")
     for room in rooms:
-        print(f"Room {room[0]} | Category: {room[1]} | Price: {room[2]} DT | Status: {room[3]}")
+        print(f"Room {room[0]} | Category: {room[1]} |Capacity: {room[2]} | Price: {room[3]} DT | Status: {room[4]}")
 def add_maintenance():
-    print("\n--- ROOM MAINTENANCE ---")
-    try:
-        m_room = int(input("Enter room number to put it under maintenance: "))
-    except ValueError:
-        print("[Error] Invalid room number.")
-        return
-    
-    room_exists = False
-    for i in range(len(rooms)):
-        if rooms[i][0] == m_room:
-            room_exists = True
-            if rooms[i][4] == "Available":
-                rooms[i] = (rooms[i][0], rooms[i][1], rooms[i][2], rooms[i][3], "Maintenance")
-                maintenance_rooms.append(m_room)
-                print(f"Room {m_room} is now under maintenance.")
-            else:
-                print(f"Room {m_room} is not available for maintenance.")
+    while True:
+        try:
+            room_number = int(input("\nEnter room number to put under maintenance (or type 0 to cancel): "))
+        except ValueError:
+            print("[Error] Please enter a valid number.")
+            continue
+            
+        if room_number == 0:
+            print("Maintenance action cancelled.")
             return
-    if not room_exists:
-        print(f"Room {m_room} does not exist.")
+
+        room_found = False
+        for i in range(len(rooms)):
+            number = rooms[i][0]
+            category = rooms[i][1]
+            capacity = rooms[i][2]
+            price = rooms[i][3]
+            status = rooms[i][4]
+
+            if number == room_number:
+                room_found = True
+                if status == "Available":
+                    rooms[i] = (number, category, capacity, price, "Maintenance")
+                    print(f"\nSuccess! Room number {number} is now under Maintenance.")
+                    return 
+                else:
+                    print(f"\n[Error] Room {number} cannot be put in maintenance because it is currently {status}. Please choose another.")
+        if room_found == False:
+            print(f"\n[Error] Room does not exist. Please try again.")
