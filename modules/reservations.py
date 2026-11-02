@@ -22,13 +22,14 @@ def book_room(rooms, guest_names, guest_phones, booked_rooms, reservation_nights
                 room_found = True
 
                 if status == "Available":
-                    # Now it asks for nights only after verifying the room exists and is free!
-                    try:
-                        nights = int(input("Enter number of nights: "))
-                    except ValueError:
-                        print("[Error] Please enter a valid number for nights.")
-                        continue
-
+                    while True:
+                        # Now it asks for nights only after verifying the room exists and is free!
+                        try:
+                            nights = int(input("Enter number of nights: "))
+                            break
+                        except ValueError:
+                            print("[Error] Please enter a valid number for nights.")
+                            continue
                     total_cost = price * nights
                     rooms[i] = (number, category, capacity, price, "Occupied")
 
