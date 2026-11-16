@@ -1,3 +1,11 @@
+from modules import reservations as reservations_module
+def ask_guest_id():
+    while True:
+        guest_id = input("Enter guest ID number (CIN or passport): ").strip()
+        if guest_id == "":
+            print("[Error] ID number cannot be empty.")
+            continue
+        return guest_id
 def get_guest_details():
     # Ask the user for a valid guest's name
     while True:
@@ -11,17 +19,20 @@ def get_guest_details():
     # Ask the user for a valid phone number using try...except
     while True:
         phone_text = input("Enter guest phone number: ")
+        cleaned = phone_text.replace("+","").replace(" ","")
         try:
-            phone = int(phone_text)
+            if cleaned.isdigit()==False:
+                raise ValueError
             break
         except ValueError:
             print("[Error] Invalid phone number. Please enter digits only.")
             continue
 
-    return name, str(phone)
+    return name.strip(),phone_text.strip()
 
 
-def view_guest_records(guest_names, guest_phones, booked_rooms, reservation_nights, reservation_costs):
+def view_guest_records(guest_names, guest_phones,guest_ids, booked_rooms, reservation_nights, reservation_costs):
+    
     # Show every guest together with their booking info
     print("\n--- GUEST & BOOKING RECORDS ---")
 
@@ -32,7 +43,8 @@ def view_guest_records(guest_names, guest_phones, booked_rooms, reservation_nigh
     for i in range(len(guest_names)):
         name = guest_names[i]
         phone = guest_phones[i]
+        guest_id = guest_ids[i]
         room = booked_rooms[i]
         nights = reservation_nights[i]
-        cost = reservation_costs[i]
-        print("Guest:", name, "| Phone:", phone, "---> Room:", room, "|", nights, "nights | Total:", cost, "DT")
+        cost = reservations_module.invoice_total(i)
+        print("Guest:", name, "| Phone:", phone, guest_id, "---> Room:", room, "|", nights, "nights | Total:", cost, "DT")
