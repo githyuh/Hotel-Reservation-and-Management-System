@@ -1,4 +1,5 @@
 from modules import reservations as reservations_module
+
 def ask_guest_id():
     while True:
         guest_id = input("Enter guest ID number (CIN or passport): ").strip()
@@ -6,6 +7,7 @@ def ask_guest_id():
             print("[Error] ID number cannot be empty.")
             continue
         return guest_id
+
 def get_guest_details():
     # Ask the user for a valid guest's name
     while True:
